@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.how2java.pojo">
+    <class name="Category" table="category_">
+    	<!-- 使用c3p0连接池需要将二级缓存去掉 -->
+    	<!-- <cache usage="read-only"/> -->
+        <id name="id" column="id">
+            <generator class="native">
+            </generator>
+        </id>
+        <property name="name" />
+        
+        <!-- 
+        	级联：
+        	cascade="save-update"
+        	cascade="delete"
+        	cascade="all" ：all 就是 delete+save-update
+        	cascade="none"：none 就是没有，默认就是none
+         -->
+        <set name="products" lazy="false">
+        	<key column="cid" not-null="false"/>
+        	<one-to-many class="Product"/>
+        </set>
+        
+    </class>
+     
+</hibernate-mapping>        
